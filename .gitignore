@@ -1,0 +1,6 @@
+.bash*
+.profile
+.psql_history
+.ssh/
+.vim*
+dbpassword
