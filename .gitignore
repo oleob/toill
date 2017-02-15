@@ -4,3 +4,4 @@
 .ssh/
 .vim*
 dbpassword
+node_modules
