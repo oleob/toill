@@ -1,7 +1,20 @@
+// Do not include local user-related stuff
 .bash*
 .profile
 .psql_history
 .ssh/
 .vim*
+
+// Do not include VIM temporary files
+*.swp
+*.swo
+
+// Do not include database password!
 dbpassword
+
+// Do not include local node stuff
 node_modules
+.node-gyp/
+.node_repl_history
+.npm/
+

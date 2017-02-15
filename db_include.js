@@ -1,6 +1,6 @@
 // Include this file to use DB connectivity, queries can be executed on the 'pool' object
 
-var pg = require('pg').native;
+var pg = require('pg');
 
 // create a config to configure both pooling behavior
 // and client options
@@ -21,4 +21,13 @@ var config = {
 //it will keep idle connections open for a 30 seconds
 //and set a limit of maximum 10 idle clients
 var pool = new pg.Pool(config);
+module.exports = {
+	pool: pool
+};
 
+process.on('unhandledRejection', function(e) {
+	  console.log(e.message, e.stack)
+})
+
+// This is an example of a query that is executed and the resulting message will be logged to the console
+pool.query("SELECT * FROM test ORDER BY id DESC LIMIT 1", function(err, result) { console.log(result.rows[0].message); });
