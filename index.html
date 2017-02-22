@@ -10,38 +10,48 @@
 </head>
 
 <body>
-	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.min.js">
+		//# sourceMappingURL=/assets/js/jquery.min.map
+	</script>
 	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/main.js"></script>
 
-	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+<!--	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<ul class="navbar-nav nav">
 			<li class="pull-left"><a href="#">Rapporter hendelse</a></li>
 			<li class="pull-right"><a href="#">Meny</a></li>
 		</ul>
 	</nav>
-	<div class="container-fluid fullheight" style="position: relative;"><!-- Main content -->
-	<div id="map">
-		<!-- Map will be loaded here -->
-	</div>
-<!--	<div class="row" style="position: absolute; bottom: 2px;"><!-- Bootstrap row for action buttons -->
-<!--	    <div class="col-lg-6 col-sm-6">
-	      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-settings" />Innstillinger</button>
-	    </div>
-	    <div class="col-lg-6 col-sm-6">
-	      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-map" />Planlegg rute</button>
-	    </div>
-	</div><!-- Action button row -->
-<!--</div><!-- Main content -->
+-->
+	<div class="container-fluid fullheight"><!-- Main content -->
+		<div class="row" style="height: calc(100% - 45px);"><!-- Map row -->
+			<div id="map" class="fullheight">
+				<!-- Map will be loaded here -->
+			</div>
+		</div> <!-- Map row -->
+		<div class="row" style="padding-top: 5px; padding-bottom: 5px;"><!-- Bootstrap row for action buttons -->
+		    <div class="col-lg-6 col-sm-6">
+		      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-cog">&nbsp;</span>Innstillinger</button>
+		    </div>
+		    <div class="col-lg-6 col-sm-6">
+		      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-map-marker">&nbsp;</span>Planlegg rute</button>
+		    </div>
+		</div><!-- Action button row -->
+	</div><!-- Main content -->
 <!-- Google Maps JS API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 <script type="text/javascript">
 // Init map
+var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+          center: {lat: 63.418, lng: 10.405},
+          zoom: 15
         });
 }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key="+API_KEY+"&v=3&callback=initMap" async defer></script>
+<script type="text/javascript">
+// Extra javascript goes here
 </script>
 </body>
 </html>
