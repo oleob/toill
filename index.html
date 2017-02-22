@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Varslingsnettverk BETA</title>
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+
+	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+		<ul class="navbar-nav nav">
+			<li class="pull-left"><a href="#">Rapporter hendelse</a></li>
+			<li class="pull-right"><a href="#">Meny</a></li>
+		</ul>
+	</nav>
+	<div class="container-fluid fullheight" style="position: relative;"><!-- Main content -->
+	<div id="map">
+		<!-- Map will be loaded here -->
+	</div>
+<!--	<div class="row" style="position: absolute; bottom: 2px;"><!-- Bootstrap row for action buttons -->
+<!--	    <div class="col-lg-6 col-sm-6">
+	      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-settings" />Innstillinger</button>
+	    </div>
+	    <div class="col-lg-6 col-sm-6">
+	      <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-map" />Planlegg rute</button>
+	    </div>
+	</div><!-- Action button row -->
+<!--</div><!-- Main content -->
+<!-- Google Maps JS API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+<script type="text/javascript">
+// Init map
+function initMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+}
+</script>
+</body>
+</html>
