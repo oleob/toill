@@ -25,12 +25,13 @@
 	</nav>
 -->
 	<div class="container-fluid fullheight"><!-- Main content -->
-		<div class="row" style="height: calc(100% - 72px);"><!-- Map row -->
+		<div class="row fullheight"><!-- style="height: calc(100% - 72px);">--><!-- Map row -->
 			<div id="map" class="fullheight">
 				<!-- Map will be loaded here -->
 			</div>
 		</div> <!-- Map row -->
-		<div class="row" style="padding-top: 5px; padding-bottom: 5px;"><!-- Bootstrap row for action buttons -->
+<!--		<div class="row" style="padding-top: 5px; padding-bottom: 5px;">--><!-- Bootstrap row for action buttons -->
+		<div class="row" style="padding-top: 5px; padding-bottom: 15px;position: sticky;bottom: 0px;background: transparent;display: flex;"><!-- Bootstrap row for action buttons -->
 		    <div class="col-lg-3 col-sm-3">
 		      <button class="btn btn-primary btn-block" data-toggle="modal" data-target=".config-modal"><span class="glyphicon glyphicon-cog">&nbsp;</span>Innstillinger</button>
 		    </div>
@@ -49,7 +50,13 @@ var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 63.418, lng: 10.405},
-          zoom: 15
+          zoom: 15,
+	  zoomControlOptions: {
+		  position: google.maps.ControlPosition.TOP_RIGHT
+	  },
+	  streetViewControlOptions: {
+		  position: google.maps.ControlPosition.TOP_RIGHT
+	  }
         });
 }
 </script>
