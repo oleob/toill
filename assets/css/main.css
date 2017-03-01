@@ -7,3 +7,8 @@ html, body {
 .fullheight {
 	height: 100%;
 }
+
+/* Make buttons more touch-friendly */
+.btn {
+	padding: 20px;
+}
