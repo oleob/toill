@@ -50,8 +50,10 @@ var map;
 var directionsService;
 var directionsDisplay;
 function initMap() {
-	directionsService = new google.maps.DirectionsService;
-	directionsDisplay = new google.maps.DirectionsRenderer;
+	directionsService = new google.maps.DirectionsService();
+	directionsDisplay = new google.maps.DirectionsRenderer({
+		draggable: true
+	});
 	map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 63.418, lng: 10.405},
           zoom: 15,
@@ -62,8 +64,12 @@ function initMap() {
 		  position: google.maps.ControlPosition.TOP_RIGHT
 	  }
         });
+	var trafficLayer = new google.maps.TrafficLayer();
+	trafficLayer.setMap(map);
 	directionsDisplay.setMap(map);
 }
+// https://developers.google.com/maps/documentation/javascript/examples/directions-draggable
+// https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation <- denne kan kanskje brukes til å unngå hindringer, gitt at veibeskrivelsen er gitt som en Polygon
 function calculateDirections() {
 	directionsService.route({
 		origin: 'trondheim', // TODO: get current position
@@ -229,6 +235,10 @@ $("#settings-cancel").on('click', function() {
 	$(".settings-modal").modal('hide');
 });
 // Route modal
+// TODO: implementer autocomplete - se:
+// https://developers.google.com/maps/documentation/javascript/examples/places-queryprediction
+// https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
+// https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
 $("#plan-route-submit").on('click', function() {
 	calculateDirections();
 	$(".plan-route-modal").modal('hide');
