@@ -33,7 +33,7 @@
 <!--		<div class="row" style="padding-top: 5px; padding-bottom: 5px;">--><!-- Bootstrap row for action buttons -->
 		<div class="row" style="padding-top: 5px; padding-bottom: 15px;position: sticky;bottom: 0px;background: transparent;display: flex;"><!-- Bootstrap row for action buttons -->
 		    <div class="col-lg-3 col-sm-3">
-		      <button class="btn btn-primary btn-block" data-toggle="modal" data-target=".config-modal"><span class="glyphicon glyphicon-cog">&nbsp;</span>Innstillinger</button>
+		      <button class="btn btn-primary btn-block" data-toggle="modal" data-target=".settings-modal"><span class="glyphicon glyphicon-cog">&nbsp;</span>Innstillinger</button>
 		    </div>
 		    <div class="col-lg-6 col-sm-6">
 		      <button class="btn btn-primary btn-block" data-toggle="modal" data-target=".report-modal"><span class="glyphicon glyphicon-alert">&nbsp;</span>Rapporter hindring</button>
@@ -47,7 +47,11 @@
 <script type="text/javascript">
 // Init map
 var map;
+var directionsService;
+var directionsDisplay;
 function initMap() {
+	directionsService = new google.maps.DirectionsService;
+	directionsDisplay = new google.maps.DirectionsRenderer;
 	map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 63.418, lng: 10.405},
           zoom: 15,
@@ -58,20 +62,54 @@ function initMap() {
 		  position: google.maps.ControlPosition.TOP_RIGHT
 	  }
         });
+	directionsDisplay.setMap(map);
+}
+function calculateDirections() {
+	directionsService.route({
+		origin: 'trondheim', // TODO: get current position
+		destination: $("#plan-route-dest").val(),
+		travelMode: 'DRIVING'
+	}, function(response, status) {
+		if (status === 'OK') {
+			directionsDisplay.setDirections(response);
+		} else {
+			noty({text: 'Fant ingen rute: ' + status, type: 'error'});
+		}
+	});
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key="+API_KEY+"&v=3&callback=initMap" async defer></script>
 
 <!-- Modal dialogs -->
-<div class="modal fade config-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade settings-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
 	Innstillinger
       </div>
       <div class="modal-body">
-       <div class="row">
-       </div> 
+       	<form name="settings">
+		<div class="form-group">
+			<label for="settings-height">Høyde</label>
+			<input class="form-control" id="settings-height" type="number" step="0.1" placeholder="(m)" />
+		</div>
+		<div class="form-group">
+			<label for="settings-width">Bredde</label>
+			<input class="form-control" type="number" id="settings-width" step="0.1" placeholder="(m)" />
+		</div>
+		<div class="form-group">
+			<label for="settings-weight">Vekt</label>
+			<input class="form-control" type="number" id="settings-weight" step="1" placeholder="(kg)" />
+		</div>
+	</form>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6">
+          <button class="btn btn-block btn-default" id="settings-cancel">Avbryt</button>
+	</div>
+	<div class="col-md-6">
+	  <button class="btn btn-block btn-primary" id="settings-save">Send inn</button>
+	</div>
       </div>
     </div>
   </div>
@@ -119,8 +157,16 @@ function initMap() {
 	Planlegg rute
       </div>
       <div class="modal-body">
-       <div class="row">
-       </div> 
+       	<label for="plan-route-dest" class="control-label">Reisemål</label>
+      	<input type="text" class="form-control" id="plan-route-dest" placeholder="Skriv inn reisemål" />
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-4">
+          <button class="btn btn-block btn-default" id="plan-route-cancel">Avbryt</button>
+	</div>
+	<div class="col-md-8">
+	  <button class="btn btn-block btn-primary" id="plan-route-submit">Start navigasjon</button>
+	</div>
       </div>
     </div>
   </div>
@@ -164,6 +210,7 @@ $.noty.defaults = {
   buttons: false // [boolean|array] an array of buttons, for creating confirmation dialogs.
 };
 
+// Reporting modal
 $("#report-submit").on('click', function() {
 	noty({ text: 'Rapporten ble sendt inn, takk!'});
 	$(".report-modal").modal('hide');
@@ -171,6 +218,24 @@ $("#report-submit").on('click', function() {
 $("#report-cancel").on('click', function() {
 	// TODO: reset modal
 	$(".report-modal").modal('hide');
+});
+// Settings modal
+$("#settings-save").on('click', function() {
+	noty({ text: 'Innstillingene ble lagret'});
+	$(".settings-modal").modal('hide');
+});
+$("#settings-cancel").on('click', function() {
+	// TODO: reset modal
+	$(".settings-modal").modal('hide');
+});
+// Route modal
+$("#plan-route-submit").on('click', function() {
+	calculateDirections();
+	$(".plan-route-modal").modal('hide');
+});
+$("#plan-route-cancel").on('click', function() {
+	// TODO: reset modal
+	$(".plan-route-modal").modal('hide');
 });
 </script>
 </body>
