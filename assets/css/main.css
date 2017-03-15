@@ -21,8 +21,11 @@ html, body {
 	padding: 40px;
 	text-align: center;
 	vertical-align: middle;
-	border-radius: 50%;
+	border-radius: 25%;
 	display: inline-block;
+}
+.option-round:hover {
+	opacity: 0.6;
 }
 .option-round.red {
 	background-color: red;
