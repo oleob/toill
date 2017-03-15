@@ -129,18 +129,18 @@ function calculateDirections() {
       <div class="modal-body">
        <div class="row">
 	<div class="col-md-4">
-	  <div class="option-round red">
-		Venstre
+	  <div class="option-round red" onClick="selected_marker='marker-red'">
+		Lav undergang
 	  </div>
 	</div>
 	<div class="col-md-4">
-	  <div class="option-round green">
-		Midten
+	  <div class="option-round green" onClick="selected_marker='marker-green'">
+		Smal vei
 	  </div>
 	</div>
 	<div class="col-md-4">
-	  <div class="option-round blue">
-		Høyre
+	  <div class="option-round blue" onClick="selected_marker='marker-blue'">
+		Vektbegrensning
 	  </div>
 	</div>
        </div> 
@@ -179,6 +179,19 @@ function calculateDirections() {
 </div>
 <script type="text/javascript">
 // Extra javascript goes here
+// An array of all the markers in the map
+var markers = [];
+
+function placeMarker(latitude, longitude, image) {
+	if (image === undefined) image = 'marker-red';
+	markers.push(new google.maps.Marker({
+		map: map,
+		position: { lat: latitude, lng: longitude },
+		icon: '/assets/img/' + image + '.png'
+	}));
+	console.info("Placed new marker (" + image + ") at (" + latitude + "," + longitude + ")");
+}
+
 $.noty.defaults = {
   layout: 'top',
   theme: 'metroui', //'defaultTheme', // or relax
@@ -219,6 +232,7 @@ $.noty.defaults = {
 // Reporting modal
 $("#report-submit").on('click', function() {
 	noty({ text: 'Rapporten ble sendt inn, takk!'});
+	placeMarker(map.getCenter().lat(), map.getCenter().lng(), selected_marker);
 	$(".report-modal").modal('hide');
 });
 $("#report-cancel").on('click', function() {
